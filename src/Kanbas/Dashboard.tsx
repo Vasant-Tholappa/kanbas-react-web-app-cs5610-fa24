@@ -26,7 +26,7 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
                 to="/Kanbas/Courses/2345/Home">
-            <img src="/images/AI.jpg" width={200} />
+            <img src="/images/reactjs.jpg" width={200} />
             <div>
               <h5>
                  CS2345 AI
@@ -44,7 +44,7 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
                 to="/Kanbas/Courses/3456/Home">
-            <img src="/images/Cyber.jpg" width={200} />
+            <img src="/images/reactjs.jpg" width={200} />
             <div>
               <h5>
                  CS3456 Cybersec
@@ -62,7 +62,7 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
                 to="/Kanbas/Courses/4567/Home">
-            <img src="/images/ML.jpg" width={200} />
+            <img src="/images/reactjs.jpg" width={200} />
             <div>
               <h5>
                  CS4567 ML
@@ -80,7 +80,7 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
                 to="/Kanbas/Courses/5678/Home">
-            <img src="/images/Cloud.jpg" width={200} />
+            <img src="/images/reactjs.jpg" width={200} />
             <div>
               <h5>
                  CS5678 Cloud Computing
@@ -98,7 +98,7 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
                 to="/Kanbas/Courses/6789/Home">
-            <img src="/images/DL.jpg" width={200} />
+            <img src="/images/reactjs.jpg" width={200} />
             <div>
               <h5>
                  CS6789 Deep Learning
@@ -116,7 +116,7 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
                 to="/Kanbas/Courses/7000/Home">
-            <img src="/images/RL.jpg" width={200} />
+            <img src="/images/reactjs.jpg" width={200} />
             <div>
               <h5>
                  CS7000 Reinforcement Learning
