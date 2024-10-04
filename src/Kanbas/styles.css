@@ -1,0 +1,113 @@
+body   {  margin: 0;  padding: 0;  }
+body * {  font-family: Arial, Helvetica, sans-serif;  }
+
+@media (min-width: 768px) {
+  #wd-kanbas .wd-main-content-offset {
+    padding-left: 140px !important;
+  }
+}
+
+
+.list-group-item {
+    background-color: white;
+    color: black;
+    border: none;
+  }
+  
+
+  .list-group-item.active {
+    background-color: white;
+    color: red;
+  }
+  
+  .list-group-item.active svg {
+    color: red; 
+  }
+
+
+  .wd-dashboard-courses {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 30px; 
+    padding-left: 30px;
+    padding-left: 30px; 
+    width: 260px;
+  }
+  
+  .wd-dashboard-course {
+    width: 260px;
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 35px; 
+    
+  }
+  
+  .wd-dashboard-course .card {
+    display: flex;
+    flex-direction: column; 
+    flex-grow: 1; 
+  }
+  
+  .wd-dashboard-course .card-body {
+    flex-grow: 1;
+  }
+  
+  .wd-dashboard-course img {
+    object-fit: cover; 
+    height: 160px; 
+    width: 100%; 
+  }
+  
+
+
+  
+
+  .list-group.wd > .list-group-item.active {
+    color: black;
+    background-color: white;
+    border-left: 3px solid black !important;
+}
+
+.list-group.wd > .list-group-item {
+    background-color: white;
+    color: red;
+}
+
+
+.btn-secondary {
+    --bs-btn-color: #000 !important;
+    --bs-btn-bg: #c7cdd1 !important;
+    --bs-btn-border-color: #c7cdd1 !important;
+    --bs-btn-hover-color: #fff !important;
+    
+  }
+  .bg-secondary {
+    --bs-secondary-rgb: 199, 205, 209;
+    
+  }
+  .list-group-item {
+    --bs-list-group-border-color: gray;
+  }
+  .wd-lesson {
+    border-left: 3px solid green !important;
+    border-bottom: 0.5px solid gray !important;
+    border-right: 0.5px solid gray !important;
+  }
+
+
+
+  .percentage-badge {
+    background-color: #f5f5f556; 
+    border-radius: 20px; 
+    padding: 5px 10px;
+    font-size: 14px; 
+    font-weight: bold; 
+    display: inline-block; 
+    color: #000; 
+    float: right;
+  }
+
+
+
+
+  
