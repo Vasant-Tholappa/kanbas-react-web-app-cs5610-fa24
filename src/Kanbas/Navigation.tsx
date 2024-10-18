@@ -7,7 +7,18 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { GiLitCandelabra } from "react-icons/gi";
 import { IoSettings } from "react-icons/io5";
 
+import { Link, useLocation } from "react-router-dom";
+
 export default function KanbasNavigation() {
+  const { pathname } = useLocation();
+  const links = [
+    { label: "Dashboard", path: "/Kanbas/Dashboard", icon: AiOutlineDashboard },
+    { label: "Courses",   path: "/Kanbas/Dashboard", icon: LiaBookSolid },
+    { label: "Calendar",  path: "/Kanbas/Calendar",  icon: IoCalendarOutline },
+    { label: "Inbox",     path: "/Kanbas/Inbox",     icon: FaInbox },
+    { label: "Labs",      path: "/Labs",             icon: LiaCogSolid },
+  ];
+
   return (
     <div id="wd-kanbas-navigation" style={{ width: 110 }} 
     className="list-group rounded-0 position-fixed
@@ -16,7 +27,7 @@ export default function KanbasNavigation() {
       <a href="https://www.northeastern.edu/" id="wd-neu-link" target="_blank" 
       className="list-group-item bg-black border-0 text-center"><img src="/images/NEU.png" width="50px" /></a><br/>
       
-      <NavLink 
+      {/* <NavLink 
         to="/Kanbas/Account" 
         id="wd-account-link"
         className={({ isActive }) => 
@@ -62,7 +73,22 @@ export default function KanbasNavigation() {
         className={({ isActive }) => 
           `list-group-item text-center border-0 ${isActive ? 'active bg-white text-danger' : 'bg-black text-white'}`}>
         <IoSettings className="fs-1 text-danger" /><br />Labs
-      </NavLink>
+      </NavLink> */}
+
+      <Link to="/Kanbas/Account" className={`list-group-item text-center border-0 bg-black
+                  ${pathname.includes("Account") ? "bg-white text-danger" : "bg-black text-white"}`}>
+              <FaRegCircleUser className={`fs-1 ${pathname.includes("Account") ? "text-danger" : "text-white"}`} />
+              <br />
+              Account
+            </Link>
+            {links.map((link) => (
+              <Link key={link.path} to={link.path} className={`list-group-item bg-black text-center border-0
+                    ${pathname.includes(link.label) ? "text-danger bg-white" : "text-white bg-black"}`}>
+                {link.icon({ className: "fs-1 text-danger"})}
+                <br />
+                {link.label}
+              </Link>
+            ))}
     </div>
   );
 }

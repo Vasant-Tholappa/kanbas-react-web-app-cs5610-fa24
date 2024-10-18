@@ -1,16 +1,26 @@
-
-  
+import { useParams } from "react-router";  
+import { Link } from 'react-router-dom';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import * as db from "../../Database";
 
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams();
+  const assignments = db.assignments
+
     return (
+
+      <div>
+
+      {assignments
+        .filter((assignment: any) => assignment._id === aid)
+        .map((assignment: any) => (
       <div style={{ marginLeft: 'auto', marginRight: 0, width: '1200px' }}>
       <div id="wd-assignments-editor" className="container mt-4" >
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="wd-name">Assignment Name</label>
-            <input id="wd-name" value="A1" className="form-control" />
+            <input id="wd-name" value={assignment.title} className="form-control" />
           </div>
         </div>
 
@@ -18,11 +28,7 @@ export default function AssignmentEditor() {
           <div className="col">
             <label htmlFor="wd-description">Assignment Description</label>
             <textarea id="wd-description" cols={40} rows={5} className="form-control">
-              The assignment is available online. Submit a link to the landing page of your web application running on Netlify. 
-              The landing page should include the following: 
-              Your full name and section, links to each of the lab assignments, 
-              link to the Kanbas application, and links to all relevant source code repositories. 
-              The Kanbas application should include a link to navigate back to the landing page.
+              {assignment.description}
             
             </textarea>
           </div>
@@ -32,9 +38,13 @@ export default function AssignmentEditor() {
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="wd-points">Points</label>
-            <input id="wd-points" value={100} className="form-control" />
+            <input id="wd-points" value={assignment.points} className="form-control" />
           </div>
         </div>
+
+        
+
+        
         </div>
         <div style={{ marginLeft: '400px' }}>
         <div className="row mb-3" >
@@ -127,7 +137,7 @@ export default function AssignmentEditor() {
         <div style={{ marginLeft: '400px' }}>
         <div className="col-md-4">
             <label htmlFor="wd-due-date">Due</label>
-            <input type="date" id="wd-due-date" value="2024-05-13" className="form-control" />
+            <input type="date" id="wd-due-date" value={assignment.duedate} className="form-control" />
           </div>
         </div>
         
@@ -135,14 +145,14 @@ export default function AssignmentEditor() {
         <div className="row mb-3">
           
 
-          <div className="col-md-4">
+          <div className="col-md-4">  
             <label htmlFor="wd-available-from">Available From</label>
-            <input type="date" id="wd-available-from" value="2024-05-06" className="form-control" />
+            <input type="date" id="wd-available-from" value={assignment.availabledate} className="form-control" />
           </div>
 
           <div className="col-md-4">
             <label htmlFor="wd-available-until">Available Until</label>
-            <input type="date" id="wd-available-until" value="2024-05-20" className="form-control" />
+            <input type="date" id="wd-available-until" value={assignment.availableuntil} className="form-control" />
           </div>
         </div>
 
@@ -154,10 +164,16 @@ export default function AssignmentEditor() {
         
 
         <div className="d-flex justify-content-end">
-          <button id="wd-cancel" className="btn btn-secondary me-2">Cancel</button>
-          <button id="wd-save" className="btn btn-danger">Save</button>
+          <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-secondary me-2" id="wd-cancel">
+            Cancel
+          </Link>
+          <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-danger" id="wd-save">
+            Save
+          </Link>
         </div>
       </div>
+      </div>
+      ))}
       </div>
     );
 }
