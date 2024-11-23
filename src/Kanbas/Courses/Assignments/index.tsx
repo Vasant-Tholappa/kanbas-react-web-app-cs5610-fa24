@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AssignmentControls from "./AssignmentControls";
 import AssignmentLessonControlButtons from "./AssignmentLessonControlButtons";
 import AssignmentControlButtons from "./AssignmentControlButtons";
@@ -7,17 +7,16 @@ import { MdEditNote } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import { useParams } from "react-router";
 import { Link } from 'react-router-dom';
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
 import * as db from "../../Database";
-import { addAssignment, deleteAssignment }
+import { addAssignment, deleteAssignment, updateAssignment, setAssignments }
   from "./reducer";
 import { useSelector, useDispatch } from "react-redux"
 export default function Assignments() {
   const { cid } = useParams();
   // const assignments = db.assignments
   // const [assignments, setAssignments] = useState<any[]>(db.assignments);
-
-
-  
 
   const [assignmentName, setAssignmentName] = useState("");
   const [description, setDescription] = useState("");
@@ -34,6 +33,37 @@ export default function Assignments() {
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const dispatch = useDispatch();
 
+  
+
+
+
+  const removeAssignment = async (assignmentId: string) => {
+    await assignmentsClient.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  };
+
+
+
+
+  const createAssignmentForCourse = async () => {
+    if (!cid) return;
+    const newAssignment = { title: assignmentName, description: description, points: points, duedate: dueDate, availabledate: availableDate, availableuntil: availableUntil, course: cid };
+    const assignment = await coursesClient.createAssignmentForCourse(cid, newAssignment);
+    dispatch(addAssignment(assignment));
+  };
+
+
+
+
+  const fetchAssignments = async () => {
+    const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+
+
 
   const handleDeleteAssignment = (assignmentId: string) => {
     if (window.confirm("Are you sure you want to delete this Assignment?")) {
@@ -41,34 +71,16 @@ export default function Assignments() {
     }
   };
 
-  // const addAssignment = () => {
-  //   setAssignments([ ...assignments, { _id: new Date().getTime().toString(),
-  //                                    title: assignmentName, course: cid, lessons: [] } ]);
-  //   setAssignmentName("");
-  //   setDescription("");
-  //   setPoints("");
-  //   setDueDate("");
-  //   setAvailableDate("");
-  //   setAvailableUntil("");
-  // };
-
-  // const deleteAssignment = (assignmentId: string) => {
-  //   setAssignments(assignments.filter((a) => a._id !== assignmentId));
-  // };
-
-
-
   return (
     <div>
-      
-        <AssignmentControls assignmentName = {assignmentName} setAssignmentName = {setAssignmentName}  description = {description}  setDescription = {setDescription} points = {points} setPoints = {setPoints} dueDate = {dueDate} setDueDate = {setDueDate} availableDate = {availableDate} setAvailableDate = {setAvailableDate} availableUntil = {availableUntil} setAvailableUntil = {setAvailableUntil} 
-        addAssignment={() => {
-          dispatch(addAssignment({ title: assignmentName, course: cid, description: description, points: points, duedate: dueDate, availableuntil: availableUntil, availabledate: availableDate }));
-          setAssignmentName("");
-        }}/><br /><br /><br /><br />
+
+<AssignmentControls assignmentName = {assignmentName} setAssignmentName = {setAssignmentName}  description = {description}  setDescription = {setDescription} points = {points} setPoints = {setPoints} dueDate = {dueDate} setDueDate = {setDueDate} availableDate = {availableDate} setAvailableDate = {setAvailableDate} availableUntil = {availableUntil} setAvailableUntil = {setAvailableUntil} 
+        addAssignment={createAssignmentForCourse}/>
+        
+        <br /><br /><br /><br />
       
       <ul id="wd-assignments" className="list-group rounded-0">
-        <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
+        <li className="wd-assignment list-group-item p-0 mb-5 fs-5 border-gray">
           <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center"> 
             <div>
               <BsGripVertical className="me-2 fs-3" /> 
@@ -85,7 +97,7 @@ export default function Assignments() {
           <ul className="wd-lessons list-group rounded-0">
 
             {assignments
-            .filter((assignment: any) => assignment.course === cid)
+            // .filter((assignment: any) => assignment.course === cid)
             .map((assignment: any) => (
 
             <li className="wd-lesson list-group-item p-3 ps-1">
@@ -98,14 +110,14 @@ export default function Assignments() {
               >
                 {assignment.title}
               </Link>
-              {/* <AssignmentLessonControlButtons assignmentId={assignment._id}
-                deleteAssignment={(assignmentId) => {
-                  dispatch(deleteAssignment(assignmentId));
-                }}/> */}
-                <AssignmentLessonControlButtons
+                {/* <AssignmentLessonControlButtons
                     assignmentId={assignment._id}
                     deleteAssignment={() => handleDeleteAssignment(assignment._id)}
-                  />
+                  /> */}
+                <AssignmentLessonControlButtons
+                    assignmentId={assignment._id}
+                    deleteAssignment={(assignmentId) => removeAssignment(assignmentId)}
+                  />  
             </li>
             ))}
 
