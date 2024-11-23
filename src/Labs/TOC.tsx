@@ -58,7 +58,7 @@ export default function TOC() {
       </li>
       <li className="nav-item">
         <a id="wd-render" href="https://kanbas-node-server-app-gkyh.onrender.com" className="nav-link">
-          Root Server - Render
+          Root Server on Render
         </a>
       </li>
       
