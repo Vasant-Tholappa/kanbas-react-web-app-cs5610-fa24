@@ -7,6 +7,7 @@ import "./styles.css";
 import PeopleTable from "./Courses/PeopleTable";
 // import * as db from "./Database";
 import { useEffect, useState } from "react";
+
 import ProtectedRoute from "./Account/ProtectedRoute";
 import Session from "./Account/Session";
 import * as userClient from "./Account/client";
@@ -20,7 +21,8 @@ export default function Kanbas() {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const fetchCourses = async () => {
       try {
-        const courses = await userClient.findMyCourses();
+        // const courses = await userClient.findMyCourses();
+        const courses = await courseClient.fetchAllCourses();
         setCourses(courses);
       } catch (error) {
         console.error(error);
@@ -43,7 +45,8 @@ export default function Kanbas() {
     //   setCourses([...courses, { ...course, _id: new Date().getTime().toString() }]);
     // };
     const addNewCourse = async () => {
-      const newCourse = await userClient.createCourse(course);
+      // const newCourse = await userClient.createCourse(course);
+      const newCourse = await courseClient.createCourse(course);
       setCourses([ ...courses, newCourse ]);
     };
   
